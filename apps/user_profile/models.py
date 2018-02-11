@@ -2,16 +2,17 @@
 from django.contrib.auth.models import User
 from django.db import models
 
+from apps.location.models import City
 from core.models.helpers import image_path
 
 
 class UserProfile(models.Model):
     SEX_CHOICES = (
-        ('F', 'female'),
-        ('M', 'male')
+        ('Жіноча', 'female'),
+        ('Чоловіча', 'male')
     )
 
-    avatar = models.ImageField(
+    '''avatar = models.ImageField(
         upload_to=image_path,
         blank=True
     )
@@ -19,13 +20,14 @@ class UserProfile(models.Model):
         max_length=255,
         blank=False,
         verbose_name='Адреса'
-    )
+    )'''
+
     user = models.OneToOneField(
         to=User,
         related_name='profile'
     )
     sex = models.CharField(
-        max_length=1,
+        max_length=10,
         choices=SEX_CHOICES,
         blank=False,
         verbose_name='Стать'
@@ -36,6 +38,34 @@ class UserProfile(models.Model):
         unique=True,
         verbose_name='Номер телефону'
     )
+
+    city = models.ForeignKey(
+        to=City,
+        default=1
+    )
+
+    street = models.CharField(
+        verbose_name='Вулиця',
+        max_length=100,
+        default='',
+    )
+
+    house = models.PositiveIntegerField(
+        verbose_name='Будинок',
+        default=0,
+    )
+
+    house_symbol = models.CharField(
+        verbose_name='Символ будинку',
+        max_length=2,
+        blank=True,
+    )
+
+    flat = models.PositiveIntegerField(
+        verbose_name='Номер квартири',
+        default=0,
+    )
+
 
     def __str__(self):
         return self.user.get_full_name()
