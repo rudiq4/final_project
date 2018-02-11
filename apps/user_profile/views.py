@@ -1,8 +1,11 @@
 # Create your views here.
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib import messages
+from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
+from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse_lazy
 from django.http import HttpResponse
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic import DetailView
 from django.views.generic.edit import FormView
 
@@ -42,3 +45,16 @@ class RegisterFormView(FormView):
     def form_valid(self, form):
         form.save()
         return super(RegisterFormView, self).form_valid(form)
+
+
+class UserPageView(DetailView):
+    template_name = 'user_page.html'
+    model = UserProfile
+
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data()
+        context['users'] = User.objects.all()
+
+        return context
+
