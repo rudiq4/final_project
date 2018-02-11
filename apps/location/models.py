@@ -32,4 +32,7 @@ class District(models.Model):
         null=False
     )
 
+    def __str__(self):
+        return self.name
+
 
