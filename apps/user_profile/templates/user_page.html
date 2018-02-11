@@ -3,7 +3,7 @@
 {% load static %}
 {% block header %}
     <title>User Profile Page</title>
-    <link href="{% static 'final_project/src/css/main_page.css' %}" rel="stylesheet">
+    <link href="{% static 'css/password.css' %}" rel="stylesheet">
 {% endblock %}
 
 {% block main %}
@@ -13,7 +13,7 @@
     </header>
 
     <div class="container">
-        <form method="post">
+        <form  method="post">
             {% csrf_token %}
 
             <div class="form-group">
@@ -69,29 +69,15 @@
             </div>
 
 
-            <h3>Зміна паролю</h3>
             <div class="form-group">
-                <label for="inputPassword" class="control-label">Введіть пароль</label>
-                <div class="form-inline row">
-                    <div class="form-group col-sm-6">
-                        <input type="password" data-toggle="validator" data-minlength="6" class="form-control"
-                               id="inputPassword" placeholder="123456" required>
-                        <span class="help-block">Мінімум 6 значень</span>
-                    </div>
-                    <div class="form-group col-sm-6">
-                        <input type="password" class="form-control"
-                               id="inputPasswordConfirm" data-match="#inputPassword"
-                               data-match-error="Помилка! Паролі не співпадають!" placeholder="Повторіть пароль"
-                               required>
-                        <div class="help-block with-errors"></div>
-                    </div>
-                </div>
+                <input type="button" value="Змінити пароль" onclick="window.location.href='http://127.0.0.1:8000/users/change_password'" class="button1" />
             </div>
 
 
         <div class="form-group">
                 <button type="submit" class="btn btn-primary">Зберегти</button>
             </div>
+
         </form>
     </div>
 
